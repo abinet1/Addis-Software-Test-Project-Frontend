@@ -1,34 +1,26 @@
 import React from 'react';
 import './App.css';
-import { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getMusicsFetch } from './state/musicState';
 import NavBar from './components/navigation/NavBar';
 import Body from './components/layout/Body';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MusicDetail from './components/layout/MusicDetail';
+import MusicUpdate from './components/Form/MusicUpdate';
 
 function App() {
 
   // @ts-ignore
-  const musics = useSelector(state => state.music.music);
-
-  const dispatch = useDispatch();
-  const filter = {title:"",album:"",genre:""}
-
-  const initApp = useCallback(async () => {
-    await dispatch(getMusicsFetch(filter));
-  }, [dispatch]);
-
-  useEffect(()=> {
-    initApp();
-  }, []);
-
   return (
-    <div>
+    <BrowserRouter>
       <NavBar />
       <br/>
-      {/* @ts-ignore */}
-      <Body musics={musics}/>
-    </div>
+      <Routes>
+        <Route path="/" element={<Body />} />
+        <Route path="/:id" element={<MusicDetail />} />
+        <Route path="/:id/update" element={<MusicUpdate />} />
+        <Route path="/:id/delete" element={<Body />} />
+        
+      </Routes>
+    </BrowserRouter>
   );
 }
 

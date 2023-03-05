@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import Music from "./Music";
 
 const Container = styled.div`
@@ -8,13 +8,13 @@ const Container = styled.div`
 
 `
 // @ts-ignore
-export default function Musics (){
+export default function Musics (props){
     // @ts-ignore
-    const musics = useSelector(state => state.music.music);
+    // const musics = useSelector(state => state.music.music);
 
     return (
     <Container>
-        {musics.map((music: any) => {
+        {props.musics.map((music: any) => {
             return <Music 
                         key={music._id} 
                         _id={music._id}

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 const Card = styled.div`
     margin: 10px;
@@ -17,6 +18,7 @@ const Image = styled.img`
 const Container = styled.div`
     padding: 2px 16px;
 `
+
 // @ts-ignore
 export default function Music(props){
 
@@ -30,6 +32,7 @@ export default function Music(props){
                 <p>{props.artist}</p> 
                 <p>{props.album}</p> 
                 <p>{props.genre}</p>
+                <Link to={`/${props._id}`}><button>see detail</button></Link>
             </Container>
         </Card>
     )
