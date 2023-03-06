@@ -1,6 +1,9 @@
 import styled from "@emotion/styled";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useCallback, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Button } from "rebass";
+import { deleteMusic } from "../../state/musicState";
 
 
 const Img = styled.img`
@@ -31,6 +34,25 @@ const H4 = styled.h4`
 // @ts-ignore
 export default function MusicPage(props){
 
+    const navigation = useNavigate();
+
+    const dispatch = useDispatch();
+
+    const {id} = useParams();
+
+
+    const apiCall = useCallback(async () => {
+        // @ts-ignore
+        await dispatch(deleteMusic(id));
+    }, []);
+
+    const deleteMusicBTN = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        apiCall();
+        navigation('/');
+    };
+
+    
     return(
         <>
             <Img alt="Hero image" src={props.music.image} />
@@ -39,8 +61,8 @@ export default function MusicPage(props){
             <H4>album: {props.music.album}</H4>
             <H4>genre: {props.music.genre}</H4>
             <H4>date: <small>{props.music.date}</small></H4>
-            <Link to={`/${props.music._id}/update`}><button>update</button></Link>
-            <Link to={`/${props.music._id}/delete`}><button>delete</button></Link>
+            <Link to={`/update/${props.music._id}`}><Button backgroundColor={'green'} marginBottom={'10'} >Update</Button></Link>
+            <Button backgroundColor={'red'} marginBottom={'10'} onClick={deleteMusicBTN} >Update</Button>
         </>
     )
 }

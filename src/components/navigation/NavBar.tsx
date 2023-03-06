@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
+import { Button } from "rebass";
 
 const Navbar=styled.header`
   display: flex;
@@ -31,14 +33,19 @@ const Input = styled.input`
   height:30px;
 `
 
-const NavBar = () => (
-  <Navbar>
-    <PageTitle>Music</PageTitle>
-    <div>
-      <Input placeholder="Search"></Input>
-      <Search>Search</Search>
-    </div>
-  </Navbar>
-);
+const NavBar = () => {
+
+
+  return(
+    <Navbar>
+      <Link to="/"><PageTitle>Music</PageTitle></Link>
+      <div>
+        <Link to="/add">
+          <Button width={100} backgroundColor={'grey'} marginBottom={'10'}> Add</Button>
+        </Link>
+      </div>
+    </Navbar>
+  )
+};
 
 export default NavBar;

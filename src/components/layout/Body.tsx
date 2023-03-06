@@ -26,21 +26,20 @@ export default function Body(){
     const genreData = useRef<HTMLInputElement>(null);
     const albumData = useRef<HTMLInputElement>(null);
 
-    const [filter, setFilter] = useState({title: '',album: '',genre: ''});
+    const filter = {title: '',album: '',genre: ''};
     
     function filterChange(){
+        console.log()
         // @ts-ignore
-        const title = titleData.current.value;
+        filter.title = titleData.current.value;
         // @ts-ignore
-        const album = albumData.current.value;
+        filter.album = albumData.current.value;
         // @ts-ignore
-        const genre = genreData.current.value;
+        filter.genre = genreData.current.value;
 
-        setFilter({title:title,genre:genre,album:album})
+        console.log(filter)
+        apiCall();
     }
-
-    // @ts-ignore
-    const musics = useSelector(state => state.music.music);
 
     const dispatch = useDispatch();
 
@@ -60,7 +59,7 @@ export default function Body(){
                 <Input placeholder="album" ref={albumData} onChange={()=>{filterChange()}} />
             </Filter >
              {/* @ts-ignore */}
-            <Musics musics={musics}/>
+            <Musics />
         </Section>
     )
 } 

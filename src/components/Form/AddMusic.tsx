@@ -3,10 +3,10 @@ import {
     Label,
     Input,
   } from '@rebass/forms'
-import { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addMusic } from "../../state/musicState";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
     Box,
@@ -18,32 +18,39 @@ import {
     Button,
   } from 'rebass'
 
+
 export default function AddMusic(){
+
+    // section elemnt style
     const Section = styled.section`
         display: flex;
         flex-direction: row;
         justify-content: center;
     `;
 
+
+    // declaring useNavigate hook to use after form validated.
+    const navigator = useNavigate();
+
+    // use state hook to indicate is there is error while valitating the form.
     const [error, setError] = useState(false);
 
-    const {id} = useParams();
+    // declaring form field ref hook 
+    const title = useRef<HTMLInputElement>(null!);
+    const album = useRef<HTMLInputElement>(null!);
+    const artist= useRef<HTMLInputElement>(null!);
+    const genre= useRef<HTMLInputElement>(null!);
+    const image= useRef<HTMLInputElement>(null!);
+    const titleError= useRef<HTMLLabelElement>(null!);
+    const albumError= useRef<HTMLLabelElement>(null!);
+    const artistError= useRef<HTMLLabelElement>(null!);
+    const genreError= useRef<HTMLLabelElement>(null!);
+    const imageError= useRef<HTMLLabelElement>(null!);
 
-    const navigation = useNavigate();
-
-    const title = useRef();
-    const album = useRef();
-    const artist= useRef();
-    const genre= useRef();
-    const image= useRef();
-    const titleError= useRef();
-    const albumError= useRef();
-    const artistError= useRef();
-    const genreError= useRef();
-    const imageError= useRef();
-
+    // declaring dispatch hook for sending request using react redux
     const dispatch = useDispatch();
 
+    // declaration of call back to dispach add request to addMusic  
     const apiCall = useCallback(async (tData: string|undefined, aData: string|undefined, arData: string|undefined, gData: string|undefined) => {
         await dispatch(addMusic({
             'title': tData, 
@@ -53,8 +60,8 @@ export default function AddMusic(){
         }));
     }, []);
 
-
-    function validate(value: string|'', defaultValue: string){
+    // Input field validater function.
+    function validate(value: string|'', defaultValue: string): boolean{
         if(value.length===0){
             setError(true)       
             return false;
@@ -66,56 +73,42 @@ export default function AddMusic(){
         return true
     }
 
-    // @ts-ignore
-    const handleSubmit=(e)=>{
+    // form validater function.
+    const handleSubmit: React.FormEventHandler<HTMLDivElement>=(e)=>{
         e.preventDefault();
 
-        // @ts-ignore
-        
-        // @ts-ignore
-        if(validate(title.current.value, title.current.defaultValue)){
-            // @ts-ignore
+        if(validate(title.current?.value, title.current.defaultValue)){
             titleError.current.style.color = 'white'
         }else{
-            // @ts-ignore
             titleError.current.style.color = 'red'
         }
 
-        // @ts-ignore
         if(validate(album.current.value, album.current.defaultValue)){
-            // @ts-ignore
             albumError.current.style.color = 'white'
         }else{
-            // @ts-ignore
             albumError.current.style.color = 'red'
         }
 
-        // @ts-ignore
         if(validate(artist.current.value, artist.current.defaultValue)){
-            // @ts-ignore
             artistError.current.style.color = 'white'
         }else{
-            // @ts-ignore
             artistError.current.style.color = 'red'
         }
 
-        // @ts-ignore
         if(validate(genre.current.value, genre.current.defaultValue)){
-            // @ts-ignore
             genreError.current.style.color = 'white'
         }else{
-            // @ts-ignore
             genreError.current.style.color = 'red'
         }
 
         if(error){
             return false
         }
-        // add to the data base
+        
+        // sending ApiCall
         try{
-            // @ts-ignore
             apiCall(title.current.value, album.current.value,artist.current.value,genre.current.value);
-            navigation(`/${id}`);
+            navigator(`/`);
         }catch(error){
             console.log(error);
         }
@@ -133,7 +126,7 @@ export default function AddMusic(){
                             Add Music
                         </Heading>
                         <Text fontSize={0}>
-                            the people is 
+                            Add music here
                         </Text>
                     </Box>
                     <br />

@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
+import { Box, Button } from "rebass";
 
 const Card = styled.div`
     margin: 10px;
@@ -17,22 +18,24 @@ const Image = styled.img`
 
 const Container = styled.div`
     padding: 2px 16px;
+    padding-bottom: 15px;
 `
 
-// @ts-ignore
+// @ts-ignore   
 export default function Music(props){
 
     return (
         <Card>
             <Image src={props.image} alt="Avatar" />
-            {/* @ts-ignore */}
             
             <Container>
-                <h4><b>{props.title}</b></h4> 
-                <p>{props.artist}</p> 
-                <p>{props.album}</p> 
-                <p>{props.genre}</p>
-                <Link to={`/${props._id}`}><button>see detail</button></Link>
+                <h4>title: <b>{props.title}</b></h4> 
+                <p>artist: {props.artist}</p> 
+                <p>album: {props.album}</p> 
+                <p>genre: {props.genre}</p>
+                <Box width={5/5} textAlign="center">
+                    <Link to={`/${props._id}`}><Button backgroundColor={'red'} marginBottom={'10'} >see detail</Button></Link>
+                </Box>
             </Container>
         </Card>
     )

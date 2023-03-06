@@ -17,7 +17,10 @@ export const musicSlice = createSlice({
         getMusicFetch: (state, payload) =>{
             state.isLoading = true;
         },
-
+        updateMusic: (state, payload)=>{
+            state.isLoading = true;
+        },
+        
         getMusicsSuccess: (state, action)=>{
             state.music = action.payload;
             state.isLoading = false;
@@ -26,15 +29,18 @@ export const musicSlice = createSlice({
             state.singleMusic = action.payload;
             state.isLoading = false;
         },
-
         getMusicsFailure: (state)=>{
             state.isLoading = false;
+            
+        },
+        deleteMusic: (state)=>{
+            state.isLoading = true;
         }
     }
 });
 
 
 
-export const { getMusicsFailure, getMusicsFetch, getMusicsSuccess, getMusicFetch, getMusicSuccess, addMusic} = musicSlice.actions;
+export const { getMusicsFailure, getMusicsFetch, getMusicsSuccess, getMusicFetch, getMusicSuccess, addMusic, updateMusic, deleteMusic} = musicSlice.actions;
 
 export default musicSlice.reducer;

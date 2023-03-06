@@ -1,12 +1,14 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { getMusicsSuccess, getMusicSuccess } from './musicState';
+import { getMusicsFailure, getMusicsSuccess, getMusicSuccess } from './musicState';
+
+// base url .....
 const Base_Url = `http://localhost:8080/api/music`
 
 // @ts-ignore
 function* workGetMusicsFeatch(payload){
-    const title: string|undefined = payload.payload.title;
-    const album: string|undefined = payload.payload.album;
-    const genre: string|undefined = payload.payload.genre;
+    const title = payload.payload.title;
+    const album = payload.payload.album;
+    const genre = payload.payload.genre;
     
     // @ts-ignore
     const musics = yield call(() => fetch(`${Base_Url}?title=${title}&album=${album}&genre=${genre}`));
@@ -17,52 +19,102 @@ function* workGetMusicsFeatch(payload){
     yield put(getMusicsSuccess(formattedMusics))
 }
 
-
 // @ts-ignore
 function* workGetMusicFeatch(payload){
-    const id: string|undefined = payload.payload;
+    const id = payload.payload;
+    try{
+      // @ts-ignore
+      const music = yield call(() => fetch(`${Base_Url}/${id}`));
     
-    // @ts-ignore
-    const music = yield call(() => fetch(`${Base_Url}/${id}`));
-
-    // @ts-ignore
-    const formattedMusic = yield music.json();
-
-    yield put(getMusicSuccess(formattedMusic))
+      // @ts-ignore
+      const formattedMusic = yield music.json();
+    
+      yield put(getMusicSuccess(formattedMusic))
+    }catch(error){
+      yield put(getMusicsFailure())
+    }
 }
+
 // @ts-ignore
 function* workAddMusic(payload){
-    const title: string|undefined = payload.payload.title;
-    const album: string|undefined = payload.payload.album;
-    const genre: string|undefined = payload.payload.genre;
-    const artist: string|undefined = payload.payload.artist;
+  const title = payload.payload.title;
+  const album = payload.payload.album;
+  const genre = payload.payload.genre;
+  const artist = payload.payload.artist;
 
-    // @ts-ignore
-    const music = yield call(() => fetch(`${Base_Url}/add`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title:title, 
-          album: album,
-          genre:genre,
-          artist: artist
-        }),
-      })
-    );
+  // @ts-ignore
+  const music = yield call(() => fetch(`${Base_Url}/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title:title, 
+        album: album,
+        genre:genre,
+        artist: artist
+      }),
+    })
+  );
 
-    // @ts-ignore
-    const formattedMusic = yield music.json();
+  // @ts-ignore
+  const formattedMusic = yield music.json();
 
-    yield put(getMusicsSuccess(formattedMusic))
+  yield put(getMusicsSuccess(formattedMusic))
+}
+
+// @ts-ignore
+function* workUpdateMusic(payload){
+  const id = payload.payload.id;
+  const title = payload.payload.title;
+  const album = payload.payload.album;
+  const genre = payload.payload.genre;
+  const artist = payload.payload.artist;
+
+  // @ts-ignore
+  const music = yield call(() => fetch(`${Base_Url}/${id}/update`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title:title, 
+        album: album,
+        genre:genre,
+        artist: artist
+      }),
+    })
+  );
+
+  // @ts-ignore
+  const formattedMusic = yield music.json();
+
+  yield put(getMusicSuccess(formattedMusic))
+}
+
+// @ts-ignore
+function* workDeleteMusic(payload){
+  const id: string|undefined = payload.payload;
+
+  // @ts-ignore
+  const music = yield call(() => fetch(`${Base_Url}/${id}/delete`, {
+      method: "DELETE"
+    })
+  );
+
+  // @ts-ignore
+  const formattedMusic = yield music.json();
+
+  yield put(getMusicsSuccess(formattedMusic))
 }
 
 function* musicSaga(){
     yield takeEvery('music/getMusicsFetch', workGetMusicsFeatch);
     yield takeEvery('music/getMusicFetch', workGetMusicFeatch);
     yield takeEvery('music/addMusic', workAddMusic);
+    yield takeEvery('music/updateMusic', workUpdateMusic);
+    yield takeEvery('music/deleteMusic', workDeleteMusic);
     
 }
 
-export default musicSaga
+export default musicSaga;
