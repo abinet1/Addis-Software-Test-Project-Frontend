@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {useNavigate, useParams, redirect} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import MusicPage from "./MusicPage";
 import { getMusicFetch } from "../../state/musicState";
 import FOF from "../../FOF";
@@ -15,8 +15,7 @@ const Section = styled.section`
 
 export default function MusicDetail(){
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-
+    
     // @ts-ignore   
     const singleMusic = useSelector(state => state.music.singleMusic);
 

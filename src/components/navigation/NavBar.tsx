@@ -18,21 +18,6 @@ const PageTitle=styled.h1`
   letter-spacing: .25px;
 `
 
-const Search= styled.button`
-  padding: 8px 24px;
-  border-radius: 4px;
-  font-weight: bold;
-  font-size: 14px;
-  text-transform: uppercase;
-  cursor: pointer;
-  background-color: lightskyblue;
-  border: none;
-`
-
-const Input = styled.input`
-  height:30px;
-`
-
 const NavBar = () => {
 
 

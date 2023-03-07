@@ -1,7 +1,7 @@
 import Musics from "./Musics";
 import styled from "@emotion/styled";
-import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useCallback, useEffect, useRef } from "react";
 import { getMusicsFetch } from "../../state/musicState";
 
 const Section = styled.section`
@@ -57,7 +57,6 @@ export default function Body(){
                 <Input placeholder="genre" ref={genreData} onChange={()=>{filterChange()}} />
                 <Input placeholder="album" ref={albumData} onChange={()=>{filterChange()}} />
             </Filter >
-             {/* @ts-ignore */}
             <Musics />
         </Section>
     )

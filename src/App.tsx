@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import NavBar from './components/navigation/NavBar';
 import Body from './components/layout/Body';
-import { BrowserRouter, Routes, Route, redirect } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MusicDetail from './components/layout/MusicDetail';
 import MusicUpdate from './components/Form/MusicUpdate';
 import AddMusic from './components/Form/AddMusic';
