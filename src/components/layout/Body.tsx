@@ -37,7 +37,6 @@ export default function Body(){
         // @ts-ignore
         filter.genre = genreData.current.value;
 
-        console.log(filter)
         apiCall();
     }
 

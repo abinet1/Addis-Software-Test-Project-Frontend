@@ -1,8 +1,11 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { getMusicsFailure, getMusicsSuccess, getMusicSuccess } from './musicState';
+import env from "react-dotenv";
 
 // base url .....
-const Base_Url = `http://localhost:8080/api/music`
+const Base_Url = env.API_URL;
+
+console.log(Base_Url);
 
 // @ts-ignore
 function* workGetMusicsFeatch(payload){
