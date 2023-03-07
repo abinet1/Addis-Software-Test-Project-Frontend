@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { getMusicsFailure, getMusicsSuccess, getMusicSuccess } from './musicState';
+import { getMusicsFailure, getMusicsSuccess, getMusicSuccess, setMusicsCount } from './musicState';
 import env from "react-dotenv";
 
 // base url .....
@@ -18,6 +18,10 @@ function* workGetMusicsFeatch(payload){
 
     // @ts-ignore
     const formattedMusics = yield musics.json();
+
+    if(title==='' && album==='' && genre===''){
+      yield put(setMusicsCount(formattedMusics.length));
+    }
 
     yield put(getMusicsSuccess(formattedMusics))
 }
@@ -63,6 +67,8 @@ function* workAddMusic(payload){
   // @ts-ignore
   const formattedMusic = yield music.json();
 
+  yield put(setMusicsCount(formattedMusic.length));
+
   yield put(getMusicsSuccess(formattedMusic))
 }
 
@@ -107,6 +113,9 @@ function* workDeleteMusic(payload){
 
   // @ts-ignore
   const formattedMusic = yield music.json();
+
+  yield put(setMusicsCount(formattedMusic.length));
+
 
   yield put(getMusicsSuccess(formattedMusic))
 }

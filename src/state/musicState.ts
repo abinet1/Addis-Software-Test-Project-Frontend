@@ -5,6 +5,7 @@ export const musicSlice = createSlice({
     initialState:{
         music: [],
         singleMusic:{},
+        musicCount:0,
         isLoading: false
     },
     reducers: {
@@ -20,7 +21,9 @@ export const musicSlice = createSlice({
         updateMusic: (state, payload)=>{
             state.isLoading = true;
         },
-        
+        setMusicsCount: (state, action)=>{
+            state.musicCount = action.payload;
+        },
         getMusicsSuccess: (state, action)=>{
             state.music = action.payload;
             state.isLoading = false;
@@ -41,6 +44,6 @@ export const musicSlice = createSlice({
 
 
 
-export const { getMusicsFailure, getMusicsFetch, getMusicsSuccess, getMusicFetch, getMusicSuccess, addMusic, updateMusic, deleteMusic} = musicSlice.actions;
+export const { setMusicsCount, getMusicsFailure, getMusicsFetch, getMusicsSuccess, getMusicFetch, getMusicSuccess, addMusic, updateMusic, deleteMusic} = musicSlice.actions;
 
 export default musicSlice.reducer;

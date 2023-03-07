@@ -1,8 +1,9 @@
 import Musics from "./Musics";
 import styled from "@emotion/styled";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useRef } from "react";
 import { getMusicsFetch } from "../../state/musicState";
+import { Box } from "rebass";
 
 const Section = styled.section`
     padding-left: 5%;
@@ -50,6 +51,7 @@ export default function Body(){
         apiCall()
     },[])
 
+    
     return (
         <Section>
             <Filter> 

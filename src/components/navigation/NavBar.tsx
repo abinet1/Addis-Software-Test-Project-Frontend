@@ -25,6 +25,9 @@ const NavBar = () => {
     <Navbar>
       <Link to="/"><PageTitle>Music</PageTitle></Link>
       <div>
+        <Link to="/statistics">
+          <Button width={100} backgroundColor={'#0061e0'} marginBottom={'10'}> Statistics</Button>
+        </Link>
         <Link to="/add">
           <Button width={100} backgroundColor={'grey'} marginBottom={'10'}> Add</Button>
         </Link>

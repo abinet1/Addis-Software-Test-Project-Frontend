@@ -7,6 +7,7 @@ import MusicDetail from './components/layout/MusicDetail';
 import MusicUpdate from './components/Form/MusicUpdate';
 import AddMusic from './components/Form/AddMusic';
 import FOF from './FOF';
+import Statistics from './components/layout/Statistics';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
       <Routes>        
         <Route path="/*" element={<FOF msg=" 404 page dasen't exist"/>} />
         <Route path="/" element={<Body />} />
+        <Route path="/statistics" element={<Statistics />} />
         <Route path="/add" element={<AddMusic />} />
         <Route path="/:id" element={<MusicDetail />} />
         <Route path="/update/:id" element={<MusicUpdate />} />

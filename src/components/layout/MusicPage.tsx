@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button } from "rebass";
@@ -62,7 +62,7 @@ export default function MusicPage(props){
             <H4>genre: {props.music.genre}</H4>
             <H4>date: <small>{props.music.date}</small></H4>
             <Link to={`/update/${props.music._id}`}><Button backgroundColor={'green'} marginBottom={'10'} >Update</Button></Link>
-            <Button backgroundColor={'red'} marginBottom={'10'} onClick={deleteMusicBTN} >Update</Button>
+            <Button backgroundColor={'red'} marginBottom={'10'} onClick={deleteMusicBTN} >Delete</Button>
         </>
     )
 }
