@@ -3,6 +3,7 @@ import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button } from "rebass";
+import { MusicType } from "../../interfaces/interface";
 import { deleteMusic } from "../../state/musicState";
 
 
@@ -31,18 +32,20 @@ const H4 = styled.h4`
     color: #000000;
 `;
 
-// @ts-ignore
-export default function MusicPage(props){
+interface PropType{
+    music: MusicType
+}
+
+export default function MusicPage(props: PropType){
 
     const navigation = useNavigate();
 
     const dispatch = useDispatch();
 
-    const {id} = useParams();
+    const {id} = useParams<{ id: string|'1' }>();
 
 
     const apiCall = useCallback(async () => {
-        // @ts-ignore
         await dispatch(deleteMusic(id));
     }, []);
 

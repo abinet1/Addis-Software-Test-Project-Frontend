@@ -3,10 +3,8 @@ import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useRef } from "react";
 import { getMusicsFetch } from "../../state/musicState";
-import { Box, Button } from "rebass";
-import { stringify } from "querystring";
+import { Box } from "rebass";
 import stats from "./stats";
-import { Link } from "react-router-dom";
 import StateDetail from "./StateDetail";
 
 const Section = styled.section`

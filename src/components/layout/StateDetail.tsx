@@ -10,12 +10,19 @@ const Span = styled.span`
     font-size: 1.2em;
     padding-right:3%;
 `;
+interface DataType{
+    name: string|"",
+    count: number|0
+}
+interface  PropTypes{
+    name: string|'',
+    data: DataType[]
+}
 // @ts-ignore
-export default function StateDetail(props){
+export default function StateDetail(props: PropTypes){
 
     return (
         <Section>
-            <br />
             <h1>
                 {props.name}
             </h1>
@@ -27,8 +34,6 @@ export default function StateDetail(props){
                 </Box>
                 <Box textAlign={'left'} width={4/5}>
                     <Box>
-                        {console.log(props.data)}
-                        {/* @ts-ignore */}
                         {props.data.map((d)=>{
                             return (
                                 <div key={props.name+'-'+d.name}>

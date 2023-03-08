@@ -1,13 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { MusicType, MusicsType } from "../interfaces/interface";
+
+
+interface initialStateType{
+    music: MusicsType| [],
+    singleMusic: MusicType,
+    musicCount: number|0,
+    isLoading: boolean|false
+}
+
+const initialState: initialStateType = {
+    music: [],
+    singleMusic:{
+        _id:'',
+        title:'',
+        artist:'',
+        genre:'',
+        album:'',
+        image:'',
+        date:'',
+        __v: 0
+    },
+    musicCount:0,
+    isLoading: false
+}
+
 
 export const musicSlice = createSlice({
     name: 'music',
-    initialState:{
-        music: [],
-        singleMusic:{},
-        musicCount:0,
-        isLoading: false
-    },
+    initialState: initialState,
     reducers: {
         addMusic: (state, payload)=>{
             state.isLoading = true;
@@ -36,13 +57,11 @@ export const musicSlice = createSlice({
             state.isLoading = false;
             
         },
-        deleteMusic: (state)=>{
+        deleteMusic: (state, action)=>{
             state.isLoading = true;
         }
     }
 });
-
-
 
 export const { setMusicsCount, getMusicsFailure, getMusicsFetch, getMusicsSuccess, getMusicFetch, getMusicSuccess, addMusic, updateMusic, deleteMusic} = musicSlice.actions;
 

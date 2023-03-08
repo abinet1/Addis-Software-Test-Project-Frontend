@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { Box, Button } from "rebass";
+import {  MusicType } from "../../interfaces/interface";
 
 const Card = styled.div`
     margin: 10px;
@@ -21,8 +22,7 @@ const Container = styled.div`
     padding-bottom: 15px;
 `
 
-// @ts-ignore   
-export default function Music(props){
+export default function Music(props: MusicType){
 
     return (
         <Card>

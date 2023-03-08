@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useRef } from "react";
 import { getMusicsFetch } from "../../state/musicState";
 import { Box } from "rebass";
+import { FilterType } from "../../interfaces/interface";
 
 const Section = styled.section`
     padding-left: 5%;
@@ -21,23 +22,21 @@ const Input = styled.input`
     height:20px;
 `;
 
+
+
 export default function Body(){
 
-    const titleData = useRef<HTMLInputElement>(null);
-    const genreData = useRef<HTMLInputElement>(null);
-    const albumData = useRef<HTMLInputElement>(null);
+    const titleData = useRef<HTMLInputElement>(null!);
+    const genreData = useRef<HTMLInputElement>(null!);
+    const albumData = useRef<HTMLInputElement>(null!);
 
-    const filter = {title: '',album: '',genre: ''};
+    const filter: FilterType = {title: '',album: '',genre: ''};
     
     function filterChange(){
         console.log()
-        // @ts-ignore
         filter.title = titleData.current.value;
-        // @ts-ignore
         filter.album = albumData.current.value;
-        // @ts-ignore
         filter.genre = genreData.current.value;
-
         apiCall();
     }
 

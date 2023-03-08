@@ -1,6 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { getMusicsFailure, getMusicsSuccess, getMusicSuccess, setMusicsCount } from './musicState';
 import env from "react-dotenv";
+import { PayloadAction } from '@reduxjs/toolkit';
 
 // base url .....
 const Base_Url = env.API_URL;
@@ -26,12 +27,10 @@ function* workGetMusicsFeatch(payload){
     yield put(getMusicsSuccess(formattedMusics))
 }
 
-// @ts-ignore
-function* workGetMusicFeatch(payload){
+function* workGetMusicFeatch(payload: PayloadAction<string>){
     const id = payload.payload;
     try{
-      // @ts-ignore
-      const music = yield call(() => fetch(`${Base_Url}/${id}`));
+      const music: Promise<Response> = yield call(() => fetch(`${Base_Url}/${id}`));
     
       // @ts-ignore
       const formattedMusic = yield music.json();
@@ -101,8 +100,8 @@ function* workUpdateMusic(payload){
   yield put(getMusicSuccess(formattedMusic))
 }
 
-// @ts-ignore
-function* workDeleteMusic(payload){
+
+function* workDeleteMusic(payload: PayloadAction<string>){
   const id: string|undefined = payload.payload;
 
   // @ts-ignore

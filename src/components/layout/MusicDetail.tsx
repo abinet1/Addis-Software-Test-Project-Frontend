@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import MusicPage from "./MusicPage";
 import { getMusicFetch } from "../../state/musicState";
 import FOF from "../../FOF";
+import { RootState } from "../../state/reduxConf";
 
 const Section = styled.section`
     text-align: center;
@@ -16,10 +17,9 @@ const Section = styled.section`
 export default function MusicDetail(){
     const dispatch = useDispatch();
     
-    // @ts-ignore   
-    const singleMusic = useSelector(state => state.music.singleMusic);
+    const singleMusic = useSelector((state: RootState) => state.music.singleMusic);
 
-    const {id} = useParams();
+    const {id} = useParams<{ id: string|'1' }>();
 
     const apiCall = useCallback(async () => {
         await dispatch(getMusicFetch(id));

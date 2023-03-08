@@ -18,6 +18,7 @@ import {
     Button,
   } from 'rebass'
 import FOF from '../../FOF';
+import { RootState } from '../../state/reduxConf';
 
 export default function UpdateMusic(){
     const Section = styled.section`
@@ -26,10 +27,11 @@ export default function UpdateMusic(){
         justify-content: center;
     `;
 
-    // @ts-ignore
-    const singleMusic = useSelector(state => state.music.singleMusic);
+    const singleMusic = useSelector((state: RootState ) => state.music.singleMusic);
 
-    const {id} = useParams();
+    const {id} = useParams<{ id: string|'1' }>();
+
+    console.log()
 
     const getCall = useCallback(async () => {
         await dispatch(getMusicFetch(id));
@@ -43,20 +45,20 @@ export default function UpdateMusic(){
 
     const navigation = useNavigate();
 
-    const title = useRef();
-    const album = useRef();
-    const artist= useRef();
-    const genre= useRef();
-    const image= useRef();
-    const titleError= useRef();
-    const albumError= useRef();
-    const artistError= useRef();
-    const genreError= useRef();
-    const imageError= useRef();
+    const title = useRef<HTMLInputElement>(null!);
+    const album = useRef<HTMLInputElement>(null!);
+    const artist= useRef<HTMLInputElement>(null!);
+    const genre= useRef<HTMLInputElement>(null!);
+    const image= useRef<HTMLInputElement>(null!);
+    const titleError= useRef<HTMLLabelElement>(null!);
+    const albumError= useRef<HTMLLabelElement>(null!);
+    const artistError= useRef<HTMLLabelElement>(null!);
+    const genreError= useRef<HTMLLabelElement>(null!);
+    const imageError= useRef<HTMLLabelElement>(null!);
 
     const dispatch = useDispatch();
 
-    const apiCall = useCallback(async (id: string, tData: string|undefined, aData: string|undefined, arData: string|undefined, gData: string|undefined) => {
+    const apiCall = useCallback(async (id: string|undefined, tData: string|undefined, aData: string|undefined, arData: string|undefined, gData: string|undefined) => {
         await dispatch(updateMusic({
             'id':id,
             'title': tData, 
@@ -79,52 +81,38 @@ export default function UpdateMusic(){
         return true
     }
 
-    // @ts-ignore
-    const handleSubmit=(e)=>{
-        e.preventDefault();
-        
-        // @ts-ignore
+    const handleSubmit=()=>{
+
         if(validate(title.current.value, title.current.defaultValue)){
-            // @ts-ignore
             titleError.current.style.color = 'white'
         }else{
-            // @ts-ignore
             titleError.current.style.color = 'red'
         }
 
-        // @ts-ignore
         if(validate(album.current.value, album.current.defaultValue)){
-            // @ts-ignore
             albumError.current.style.color = 'white'
         }else{
-            // @ts-ignore
             albumError.current.style.color = 'red'
         }
 
-        // @ts-ignore
         if(validate(artist.current.value, artist.current.defaultValue)){
-            // @ts-ignore
             artistError.current.style.color = 'white'
         }else{
-            // @ts-ignore
             artistError.current.style.color = 'red'
         }
 
-        // @ts-ignore
         if(validate(genre.current.value, genre.current.defaultValue)){
-            // @ts-ignore
             genreError.current.style.color = 'white'
         }else{
-            // @ts-ignore
             genreError.current.style.color = 'red'
         }
 
         if(error){
             return false
         }
+
         // add to the data base
         try{
-            // @ts-ignore
             apiCall(id,title.current.value, album.current.value,artist.current.value,genre.current.value);
             navigation(`/${id}`);
         }catch(error){
